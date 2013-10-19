@@ -1,17 +1,13 @@
 package uk.co.grahamcox.books.controllers.debug
 
 import org.scalatra._
-import org.json4s._
-import org.scalatra.json._
 import uk.co.grahamcox.books.buildinfo.BuildInfo
+import uk.co.grahamcox.books.controllers.BaseServlet
 
-class DebugServlet extends ScalatraServlet with JacksonJsonSupport {
-  protected implicit val jsonFormats: Formats = DefaultFormats.withBigDecimal
-
-  before() {
-    contentType = formats("json")
-  }
-
+/**
+ * Simple servlet to return debug information to the client
+ */
+class DebugServlet extends BaseServlet {
   case class Version(name: String, version: String)
 
   get("/version") {
