@@ -10,17 +10,11 @@ object Settings {
         scalaVersion := scalaCompilerVersion
     )
 
-    val Resolvers = Seq (
-        "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-        "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases"
-    )
-
     lazy val defaultSettings = Defaults.defaultSettings ++ 
         org.scalastyle.sbt.ScalastylePlugin.Settings ++ 
         com.typesafe.sbt.SbtSite.site.settings ++
         com.typesafe.sbt.SbtSite.site.includeScaladoc() ++
         coreSettings ++ Seq(
-            resolvers ++= Resolvers,
             scalacOptions in Compile ++= Seq(
                 "-encoding", "UTF-8",
                 "-target:jvm-1.7",
@@ -82,7 +76,11 @@ object DozyBuild extends Build {
         id = "books",
         base = file("."),
         aggregate = Seq(webapp),
-        settings = Settings.defaultSettings
+        settings = Settings.defaultSettings ++ 
+          ScctPlugin.mergeReportSettings ++
+          com.github.theon.coveralls.CoverallsPlugin.coverallsSettings ++ Seq(
+            com.github.theon.coveralls.CoverallsPlugin.CoverallsKeys.coverallsToken := Some("SyWZl799F2VHaLTbE6bPwCpOWxNfFQVN3")
+          )
     )
 
     lazy val webapp = Project(
@@ -91,6 +89,7 @@ object DozyBuild extends Build {
         settings = Settings.defaultSettings ++ 
             com.earldouglas.xsbtwebplugin.WebPlugin.webSettings ++ 
             sbtbuildinfo.Plugin.buildInfoSettings ++
+            ScctPlugin.instrumentSettings ++
             Seq(
               sourceGenerators in Compile <+= sbtbuildinfo.Plugin.buildInfo,
               sbtbuildinfo.Plugin.buildInfoKeys := Seq[sbtbuildinfo.Plugin.BuildInfoKey](name, version, scalaVersion),
