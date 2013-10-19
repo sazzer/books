@@ -29,7 +29,7 @@ object Settings {
 object Dependencies {
     val Slf4jVersion = "1.7.1"
     val LogbackVersion = "1.0.1"
-    val ScalatraVersion = "2.2.0"
+    val ScalatraVersion = "2.2.1"
 
     val Specs = Seq(
         "org.specs2" %% "specs2" % "2.2.2" % "test",
@@ -71,7 +71,7 @@ object Dependencies {
     val Core = ScalaCore ++ Logging ++ Specs
 }
 
-object DozyBuild extends Build {
+object BooksBuild extends Build {
     lazy val root = Project(
         id = "books",
         base = file("."),

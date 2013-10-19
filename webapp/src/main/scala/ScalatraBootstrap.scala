@@ -7,5 +7,6 @@ import javax.servlet.ServletContext
 class ScalatraBootstrap extends LifeCycle {
   override def init(context: ServletContext) {
     context.mount(new uk.co.grahamcox.books.controllers.debug.DebugServlet, "/debug")
+    context.mount(new uk.co.grahamcox.books.controllers.oauth2.OAuth2Servlet, "/oauth/2.0")
   }
 }
