@@ -24,9 +24,9 @@ class OAuth2Servlet extends BaseServlet {
      * @param grantType the grant type that is unsupported
      * @return the error object
      */
-    def unsupportedGrantType(grantType: String) = new ErrorResponse(error = "unsupported_grant_type", 
+    def unsupportedGrantType(grantType: String): ErrorResponse = new ErrorResponse(error = "unsupported_grant_type",
       error_description = Some(s"Grant type specified is not valid for this request: $grantType"))
-    def missingParam(param: String) = new ErrorResponse(error = "invalid_request",
+    def missingParam(param: String): ErrorResponse = new ErrorResponse(error = "invalid_request",
       error_description = Some(s"A required parameter was not supplied: $param"))
   }
 
