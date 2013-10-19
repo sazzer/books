@@ -87,6 +87,12 @@ object DozyBuild extends Build {
         base = file("webapp"),
         settings = Settings.defaultSettings ++ 
             com.earldouglas.xsbtwebplugin.WebPlugin.webSettings ++ 
+            sbtbuildinfo.Plugin.buildInfoSettings ++
+            Seq(
+              sourceGenerators in Compile <+= sbtbuildinfo.Plugin.buildInfo,
+              sbtbuildinfo.Plugin.buildInfoKeys := Seq[sbtbuildinfo.Plugin.BuildInfoKey](name, version, scalaVersion),
+              sbtbuildinfo.Plugin.buildInfoPackage := "uk.co.grahamcox.books.buildinfo"
+            ) ++
             Seq(
               libraryDependencies ++= Dependencies.Core ++ 
                   Dependencies.LoggingImpl("runtime") ++
