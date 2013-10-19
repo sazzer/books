@@ -16,4 +16,8 @@ class DebugServlet extends BaseServlet {
       version = BuildInfo.version
     )
   }
+
+  get("/ping") {
+    params.get("input")
+  }
 }
