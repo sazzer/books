@@ -16,6 +16,9 @@ object Settings {
     )
 
     lazy val defaultSettings = Defaults.defaultSettings ++ 
+        org.scalastyle.sbt.ScalastylePlugin.Settings ++ 
+        com.typesafe.sbt.SbtSite.site.settings ++
+        com.typesafe.sbt.SbtSite.site.includeScaladoc() ++
         coreSettings ++ Seq(
             resolvers ++= Resolvers,
             scalacOptions in Compile ++= Seq(
