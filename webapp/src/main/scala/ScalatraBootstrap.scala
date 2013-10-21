@@ -6,7 +6,9 @@ import javax.servlet.ServletContext
  */
 class ScalatraBootstrap extends LifeCycle {
   override def init(context: ServletContext) {
+    val accessTokenService = new uk.co.grahamcox.books.oauth2.AccessTokenService
+
     context.mount(new uk.co.grahamcox.books.controllers.debug.DebugServlet, "/debug")
-    context.mount(new uk.co.grahamcox.books.controllers.oauth2.OAuth2Servlet, "/oauth/2.0")
+    context.mount(new uk.co.grahamcox.books.controllers.oauth2.OAuth2Servlet(accessTokenService), "/oauth/2.0")
   }
 }

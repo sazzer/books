@@ -68,7 +68,9 @@ object Dependencies {
       "javax.servlet" % "servlet-api" % "2.5" % "provided"
     )
 
-    val Core = ScalaCore ++ Logging ++ Specs
+    val Core = ScalaCore ++ Logging ++ Specs ++ Seq(
+      "com.github.nscala-time" %% "nscala-time" % "0.6.0"
+    )
 }
 
 object BooksBuild extends Build {

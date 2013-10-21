@@ -1,13 +1,15 @@
 package uk.co.grahamcox.books.controllers.oauth2
 
+import com.github.nscala_time.time.Imports._
 import org.scalatra._
 import uk.co.grahamcox.books.buildinfo.BuildInfo
 import uk.co.grahamcox.books.controllers.BaseServlet
+import uk.co.grahamcox.books.oauth2._
 
 /**
  * Controller for managing OAuth 2.0 authentication (RFC-6749)
  */
-class OAuth2Servlet extends BaseServlet {
+class OAuth2Servlet(accessTokenService: AccessTokenService) extends BaseServlet {
   /**
    * Response indicating that an Access Token has been issued
    * @param access_token The actual access token
@@ -16,8 +18,31 @@ class OAuth2Servlet extends BaseServlet {
    * @param refresh_token A refresh token to obtain a new access token with
    * @param scope The scopes of the access token
    */
-  case class AccessToken(access_token: String, token_type: String, expires_in: Int, refresh_token: Option[String] = None, scope:
+  case class AccessTokenResponse(access_token: String, token_type: String, expires_in: Long, refresh_token: Option[String] = None, scope:
   Option[String] = None)
+
+  /**
+   * Companion object to make creating AccessTokenResponse objects easier
+   */
+  object AccessTokenResponse {
+    /**
+     * Create an AccessTokenResponse from a Token
+     * @param token The token to construct the response from
+     * @return the response
+     */
+    def apply(token: Token): AccessTokenResponse = AccessTokenResponse(
+      token.accessToken.token,
+      token.tokenType.tokenType,
+      (DateTime.now to token.expiry).duration.seconds,
+      token.refreshToken.map { rt => rt.token },
+      token.scopes match {
+        case Nil => None
+        case scopes => Some(scopes.map {
+          scope: Scope => scope.scope
+        } mkString(" "))
+      }
+    )
+  }
   /**
    * Representation of an error from an OAuth 2.0 request
    * @param error The actual error code
@@ -58,22 +83,12 @@ class OAuth2Servlet extends BaseServlet {
    * @param scopes The scopes of the grant
    * @return Either a successful grant or an Error Response
    */
-  def resourceOwnerPasswordCredentialsGrant(username: String, password: String, scopes: Option[Seq[String]]): Either[AccessToken, ErrorResponse] = 
-    (username, password) match {
-      case ("graham", "password") => {
-        Left(AccessToken(
-          access_token = "abcdef",
-          token_type = "bearer",
-          expires_in = 3600,
-          refresh_token = Some("fedcba"),
-          scope = scopes.map {
-            scopes => scopes.mkString(" ")
-          }
-        ))
-      }
-      case _ => {
-        Right(ErrorResponse.invalidGrant("Invalid username or password"))
-      }
+  def resourceOwnerPasswordCredentialsGrant(username: String, password: String, scopes: Option[Seq[String]]): Either[AccessTokenResponse, ErrorResponse] = {
+    val request = ResourceOwnerPasswordCredentials(username, password, scopes.getOrElse(Nil).map {
+      scope: String => Scope(scope)
+    })
+    
+    Left(AccessTokenResponse(accessTokenService.grant(request)))
     }
 
   post("/token") {
