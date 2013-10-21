@@ -2,9 +2,10 @@ package uk.co.grahamcox.books.controllers.oauth2
 
 import org.scalatra.test.specs2._
 import org.specs2.matcher._
+import uk.co.grahamcox.books.oauth2.AccessTokenService
 
 class OAuth2ServletSpec extends MutableScalatraSpec with JsonMatchers {
-  addServlet(new OAuth2Servlet, "/oauth/2.0/*")
+  addServlet(new OAuth2Servlet(new AccessTokenService), "/oauth/2.0/*")
 
   "GET /oauth/2.0/token" should {
     "return status 405" in {

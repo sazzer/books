@@ -38,10 +38,10 @@ case class ResourceOwnerPasswordCredentials(username: String, password: String, 
  * @param refresh_token A refresh token to obtain a new access token with
  * @param scope The scopes of the access token
  */
-case class Token(accessToken: AccessToken, 
-  tokenType: TokenType, 
-  expiry: DateTime, 
-  refreshToken: Option[RefreshToken] = None, 
+case class Token(accessToken: AccessToken,
+  tokenType: TokenType,
+  expiry: DateTime,
+  refreshToken: Option[RefreshToken] = None,
   scopes: Seq[Scope] = Nil)
 /**
  * The service that is responsible for issuing access tokens
@@ -52,11 +52,10 @@ class AccessTokenService {
    * @param grant the grant details
    * @return the token
    */
-  def grant(grant: ResourceOwnerPasswordCredentials) = Token(
+  def grant(grant: ResourceOwnerPasswordCredentials): Token = Token(
     accessToken = AccessToken("abcdef"),
     tokenType = TokenType("bearer"),
     expiry = DateTime.now + 1.hour,
     refreshToken = Some(RefreshToken("fedcba")),
     scopes = grant.scopes)
-  
 }

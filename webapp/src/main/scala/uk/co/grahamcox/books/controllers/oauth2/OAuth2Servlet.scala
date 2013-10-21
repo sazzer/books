@@ -87,7 +87,7 @@ class OAuth2Servlet(accessTokenService: AccessTokenService) extends BaseServlet 
     val request = ResourceOwnerPasswordCredentials(username, password, scopes.getOrElse(Nil).map {
       scope: String => Scope(scope)
     })
-    
+
     Left(AccessTokenResponse(accessTokenService.grant(request)))
     }
 
