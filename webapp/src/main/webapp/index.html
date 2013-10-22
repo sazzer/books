@@ -2,8 +2,16 @@
 <html lang="en">
   <head>
     <title>Personal Catalogue</title>
+    <script type="text/javascript" src="javascript/external/requirejs/require.js"></script>
   </head>
   <body>
     Body to go here
+    <script type="text/javascript">
+      require.config({
+        baseUrl: "javascript/modules"
+      });
+      require(["application"], function(application) {
+      });
+    </script>
   </body>
 </html>
