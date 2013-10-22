@@ -10,11 +10,17 @@ object Settings {
         scalaVersion := scalaCompilerVersion
     )
 
+    lazy val Resolvers = Seq (
+      "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+      "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases"
+    )
+
     lazy val defaultSettings = Defaults.defaultSettings ++ 
         org.scalastyle.sbt.ScalastylePlugin.Settings ++ 
         com.typesafe.sbt.SbtSite.site.settings ++
         com.typesafe.sbt.SbtSite.site.includeScaladoc() ++
         coreSettings ++ Seq(
+            resolvers ++= Resolvers,
             scalacOptions in Compile ++= Seq(
                 "-encoding", "UTF-8",
                 "-target:jvm-1.7",
@@ -90,8 +96,13 @@ object BooksBuild extends Build {
         base = file("webapp"),
         settings = Settings.defaultSettings ++ 
             com.earldouglas.xsbtwebplugin.WebPlugin.webSettings ++ 
-            sbtbuildinfo.Plugin.buildInfoSettings ++
             ScctPlugin.instrumentSettings ++
+            com.bowlingx.sbt.plugins.Wro4jPlugin.wro4jSettings ++
+            Seq(
+              (com.earldouglas.xsbtwebplugin.PluginKeys.webappResources in Compile) <+=
+              (com.bowlingx.sbt.plugins.Wro4jPlugin.Wro4jKeys.targetFolder in com.bowlingx.sbt.plugins.Wro4jPlugin.Wro4jKeys.generateResources in Compile)
+            ) ++
+            sbtbuildinfo.Plugin.buildInfoSettings ++
             Seq(
               sourceGenerators in Compile <+= sbtbuildinfo.Plugin.buildInfo,
               sbtbuildinfo.Plugin.buildInfoKeys := Seq[sbtbuildinfo.Plugin.BuildInfoKey](name, version, scalaVersion),
