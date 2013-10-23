@@ -1,17 +1,30 @@
 apply plugin: 'war'
-apply plugin: 'jetty'
-
-def ScalatraVersion = "2.2.1"
 
 war {
   from 'build/webapp'
 }
 
+
+configurations {
+  jetty
+}
+
 dependencies {
+  def ScalatraVersion = "2.2.1"
+  def jettyVersion = "8.1.0.RC0"
+
+  jetty "org.mortbay.jetty:jetty-runner:$jettyVersion"
+
   compile group: "org.scalatra", name: "scalatra_2.10", version: ScalatraVersion
   testCompile group: "org.scalatra", name: "scalatra-specs2_2.10", version: ScalatraVersion
   compile group: "org.scalatra", name: "scalatra-json_2.10", version: ScalatraVersion
   compile "org.json4s:json4s-jackson_2.10:3.2.4"
 
   providedCompile "javax.servlet:servlet-api:2.5"
+}
+
+task runJetty(type: JavaExec) {
+  main = "org.mortbay.jetty.runner.Runner"
+  args = [war.archivePath]
+  classpath configurations.jetty
 }
