@@ -1,0 +1,7 @@
+{
+  "main-view": {
+    "requires": [
+      "widget"
+    ]
+  }
+}

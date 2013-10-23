@@ -1,0 +1,10 @@
+{
+  "name": "main-view",
+  "builds": {
+    "main-view": {
+      "jsfiles": [
+        "main-view.js"
+      ]
+    }
+  }
+}

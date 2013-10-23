@@ -2,30 +2,7 @@
 <html lang="en">
   <head>
     <title>Personal Catalogue</title>
-    <script type="text/javascript" src="javascript/external/requirejs/require.js"></script>
   </head>
   <body>
-    Body to go here
-    <script type="text/javascript">
-      require.config({
-        baseUrl: "javascript/modules",
-        paths: {
-          "backbone": "../external/backbone/backbone",
-          "underscore": "../external/underscore/underscore",
-          "jquery": "../external/jquery/jquery-2.0.3"
-        },
-        shim: {
-          "backbone": {
-            "deps": ["underscore", "jquery"],
-            "exports": "Backbone"
-          },
-          "underscore": {
-            "exports": "_"
-          }
-        }
-      });
-      require(["application"], function(application) {
-      });
-    </script>
   </body>
 </html>

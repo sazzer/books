@@ -96,12 +96,10 @@ object BooksBuild extends Build {
         base = file("webapp"),
         settings = Settings.defaultSettings ++ 
             com.earldouglas.xsbtwebplugin.WebPlugin.webSettings ++ 
-            ScctPlugin.instrumentSettings ++
-            com.bowlingx.sbt.plugins.Wro4jPlugin.wro4jSettings ++
             Seq(
-              (com.earldouglas.xsbtwebplugin.PluginKeys.webappResources in Compile) <+=
-              (com.bowlingx.sbt.plugins.Wro4jPlugin.Wro4jKeys.targetFolder in com.bowlingx.sbt.plugins.Wro4jPlugin.Wro4jKeys.generateResources in Compile)
-            ) ++
+              com.earldouglas.xsbtwebplugin.PluginKeys.webappResources in Compile <+= (sourceDirectory in Compile)(sd => sd / "../../target/webapp")
+            ) ++ 
+            ScctPlugin.instrumentSettings ++
             sbtbuildinfo.Plugin.buildInfoSettings ++
             Seq(
               sourceGenerators in Compile <+= sbtbuildinfo.Plugin.buildInfo,

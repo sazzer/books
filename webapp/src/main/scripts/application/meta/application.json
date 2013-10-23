@@ -1,0 +1,8 @@
+{
+  "application": {
+    "requires": [
+      "base",
+      "main-view"
+    ]
+  }
+}
