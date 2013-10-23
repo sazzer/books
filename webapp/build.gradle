@@ -1,9 +1,27 @@
 apply plugin: 'war'
 
-war {
-  from 'build/webapp'
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'de.obqo.gradle:gradle-lesscss-plugin:1.0-1.3.3'
+  }
+}
+apply plugin: 'lesscss'
+
+lesscss {
+  source = fileTree("src/main/less") {
+    include "main.less"
+  }
+  dest = "build/webapp/css"
+  compress = true
 }
 
+war {
+  dependsOn 'lesscss'
+  from 'build/webapp'
+}
 
 configurations {
   jetty
