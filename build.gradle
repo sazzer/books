@@ -18,13 +18,13 @@ allprojects {
   }
 
   compileScala {
-    scalaCompileOptions.targetCompatibility = "1.6"
+//    scalaCompileOptions.targetCompatibility = "1.6"
     scalaCompileOptions.deprecation = true
     scalaCompileOptions.failOnError = true
   }
 
   compileTestScala {
-    scalaCompileOptions.targetCompatibility = "1.6"
+  //  scalaCompileOptions.targetCompatibility = "1.6"
     scalaCompileOptions.deprecation = true
     scalaCompileOptions.failOnError = true
   }
@@ -34,8 +34,6 @@ allprojects {
     def logbackVersion = "1.0.13"
     def scalaVersion = "2.10.2"
 
-    scalaTools "org.scala-lang:scala-compiler:$scalaVersion"
-    scalaTools "org.scala-lang:scala-library:$scalaVersion"
     compile "org.scala-lang:scala-library:$scalaVersion"
 
     testCompile "org.specs2:specs2_2.10:2.2.2"
