@@ -2,6 +2,7 @@
   "application": {
     "requires": [
       "base",
+      "app",
       "main-view"
     ]
   }
