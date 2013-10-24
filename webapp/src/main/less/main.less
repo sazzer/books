@@ -1,5 +1,27 @@
 @base: #f938ab;
+@headerSize: 10em;
+@footerSize: 3em;
 
 body {
-  color: @base;
+  #header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: @headerSize;
+  }
+  #body {
+    position: absolute;
+    top: @headerSize;
+    left: 0;
+    right: 0;
+    bottom: @footerSize;
+  }
+  #footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: @footerSize;
+  }
 }
