@@ -17,7 +17,6 @@ lesscss {
 
 war {
   dependsOn 'lesscss'
-  dependsOn 'buildYui'
   from 'build/webapp'
 }
 
@@ -43,8 +42,4 @@ task runJetty(type: JavaExec) {
   main = "org.mortbay.jetty.runner.Runner"
   args = [war.archivePath]
   classpath configurations.jetty
-}
-
-task buildYui(type: Exec) {
-  commandLine './build-yui3.sh'
 }

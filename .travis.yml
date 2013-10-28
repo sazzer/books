@@ -1,5 +1,3 @@
 language: scala
 scala:
   - 2.10.2
-before_install:
-  npm install -g -q shifter yogi

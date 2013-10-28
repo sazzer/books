@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     <title>Personal Catalogue</title>
-    <script type="text/javascript" src="http://yui.yahooapis.com/3.13.0/build/yui/yui-min.js"></script>
-    <script type="text/javascript" src="scripts/loader.js"></script>
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
@@ -11,19 +9,5 @@
     <link type="text/css" rel="stylesheet" href="css/main.css" />
   </head>
   <body>
-    <script type="text/javascript">
-      YUI({
-        groups: {
-          books: {
-            combine: false,
-            base: "scripts/",
-            filter: "DEBUG",
-            modules: BooksModules
-          }
-        }
-      }).use("application", function(Y) {
-        var app = new Y.Books.Application();
-      });
-    </script>
   </body>
 </html>

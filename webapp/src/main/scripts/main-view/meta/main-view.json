@@ -1,9 +1,0 @@
-{
-  "main-view": {
-    "requires": [
-      "widget",
-      "gallery-makenode",
-      "login-dialog"
-    ]
-  }
-}
