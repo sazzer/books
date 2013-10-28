@@ -7,7 +7,34 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
 
     <link type="text/css" rel="stylesheet" href="css/main.css" />
+    <script type="text/javascript" src="scripts/external/requirejs/require.js"></script>
   </head>
   <body>
+    <script type="text/javascript">
+      require.config({
+        baseUrl: "scripts/modules",
+        paths: {
+          "backbone": "../external/backbone/backbone-min",
+          "underscore": "../external/underscore/underscore-min",
+          "knockout": "../external/knockout/knockout-3.0.0",
+          "knockback": "../external/knockback/knockback-0.17.2.min",
+          "jquery": "../external/jquery/jquery-2.0.3.min"
+        },
+        shim: {
+          "backbone": {
+            deps: [
+              "underscore",
+              "jquery"
+            ],
+            exports: "Backbone"
+          },
+          "underscore": {
+            exports: "_"
+          }
+        }
+      });
+      require(["application"], function(application) {
+      });
+    </script>
   </body>
 </html>
