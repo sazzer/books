@@ -1,0 +1,10 @@
+{
+  "name": "login-dialog",
+  "builds": {
+    "login-dialog": {
+      "jsfiles": [
+        "login-dialog.js"
+      ]
+    }
+  }
+}

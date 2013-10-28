@@ -1,9 +1,10 @@
 {
-  "main-view": {
+  "login-dialog": {
     "requires": [
       "widget",
+      "overlay",
       "gallery-makenode",
-      "login-dialog"
+      "gallery-overlay-extras"
     ]
   }
 }
