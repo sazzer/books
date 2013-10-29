@@ -1,7 +1,6 @@
 {
   "main-view": {
-    "header": "Header",
-    "body": "Body",
-    "footer": "Footer"
+    "pageName": "Personal Catalogue",
+    "searchLabel": "Search"
   }
 }

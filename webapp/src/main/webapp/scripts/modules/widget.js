@@ -32,8 +32,19 @@ define(["backbone", "underscore"], function(Backbone, _) {
         this.boundNodes = boundNodes;
       }
 
+      this.$el.find("[i18n]").each(_.bind(function(i, e) {
+        var el = $(e);
+        var i18nName = this.className + "." + el.attr("i18n");
+        var i18nValue = i18n(i18nName);
+        el.text(i18nValue);
+      }, this));
+
       if (this.renderUi) {
         this.renderUi();
+      }
+
+      if (this.bindUi) {
+        this.bindUi();
       }
 
       if (parent) {
