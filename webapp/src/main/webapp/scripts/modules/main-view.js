@@ -12,9 +12,9 @@ define(["backbone", "underscore"], function(Backbone, _) {
     },
     /** The template to render */
     template: _.template([
-      '<div class="header">Header</div>',
-      '<div class="body">Body</div>',
-      '<div class="footer">Footer</div>',
+      '<div class="header"></div>',
+      '<div class="body"></div>',
+      '<div class="footer"></div>',
     ].join("")),
     /**
      * Construct the view
@@ -27,6 +27,9 @@ define(["backbone", "underscore"], function(Backbone, _) {
      */
     render: function(parent) {
       this.$el.html(this.template());
+      this.$el.find(".header").text(i18n('main-view.header'));
+      this.$el.find(".body").text(i18n('main-view.body'));
+      this.$el.find(".footer").text(i18n('main-view.footer'));
       parent.append(this.$el);
       return this;
     }

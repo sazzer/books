@@ -1,0 +1,7 @@
+{
+  "main-view": {
+    "header": "Header",
+    "body": "Body",
+    "footer": "Footer"
+  }
+}
