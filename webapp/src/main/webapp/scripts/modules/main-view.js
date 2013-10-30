@@ -45,9 +45,6 @@ define(["underscore", "widget"], function(_, Widget) {
     events: {
       "submit form.search": "_onSubmitSearchForm"
     },
-    initialize: function(config) {
-      this.router = config.router;
-    },
     /**
      * Render the view
      * @method renderUi

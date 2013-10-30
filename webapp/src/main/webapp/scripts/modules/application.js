@@ -1,10 +1,27 @@
-define(["main-view", "router", "jsperanto"], function(MainView, Router) {
+define(["container/container", "jsperanto"], function(Container) {
   $.jsperanto.init(function(t) {
-    window.i18n = t;
-    var router = Router;
+    var containerDefinition = {
+      "main-view": {
+        "type": "bean",
+        "scope": "singleton",
+        "module": "main-view"
+      }
+    };
 
-    var mainView = new MainView({router: router});
-    mainView.render($("body"));
+    window.i18n = t;
+    var container = new Container(containerDefinition);
+    container.register("i18n", t);
+    var mainView = container.getObject({
+      name: "main-view",
+      callback: {
+        success: function(mainView) {
+          mainView.render($("body"));
+        },
+        failure: function(error, beanName) {
+          $("body").append("Error loading application: " + error + " when loading bean: " + beanName);
+        }
+      }
+    });
   }, {
     fallbackLang: "en"
   });
