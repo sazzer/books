@@ -45,6 +45,9 @@ define(["underscore", "widget"], function(_, Widget) {
     events: {
       "submit form.search": "_onSubmitSearchForm"
     },
+    initialize: function(config) {
+      this.router = config.router;
+    },
     /**
      * Render the view
      * @method renderUi
@@ -67,6 +70,7 @@ define(["underscore", "widget"], function(_, Widget) {
       if (searchString) {
         console.log("Searching..." + searchString);
         searchInput.val("");
+        this.router.search(searchString);
       }
     }
   });
