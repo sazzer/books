@@ -15,6 +15,8 @@ define(["backbone", "underscore"], function(Backbone, _) {
      */
     initialize: function() {
     },
+    /** The i18n context to use */
+    i18n: undefined,
     /**
      * Render the view
      * @param parent The node to render this into
@@ -35,7 +37,13 @@ define(["backbone", "underscore"], function(Backbone, _) {
       this.$el.find("[i18n]").each(_.bind(function(i, e) {
         var el = $(e);
         var i18nName = this.className + "." + el.attr("i18n");
-        var i18nValue = i18n(i18nName);
+        var i18nValue;
+        if (this.i18n) {
+          i18nValue = this.i18n(i18nName);
+        }
+        else {
+          i18nValue = i18nName;
+        }
         el.text(i18nValue);
       }, this));
 

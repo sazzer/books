@@ -1,26 +1,37 @@
-define(["container/container", "jsperanto"], function(Container) {
+define(["backbone", "inverted", "jsperanto"], function(Backbone, inverted) {
   $.jsperanto.init(function(t) {
+    define("i18n", [], function() {
+      return t;
+    });
     var containerDefinition = {
-      "main-view": {
-        "type": "bean",
-        "scope": "singleton",
-        "module": "main-view"
+      protos: {
+        "i18n": {
+          "scope": "static",
+          "module": "i18n"
+        },
+        "router": {
+          "scope": "singleton",
+          "module": "router",
+          "injectAppContext": true
+        },
+        "main-view": {
+          "scope": "singleton",
+          "module": "main-view",
+          "props": {
+            "i18n": "*i18n",
+            "router": "*router"
+          }
+        }
       }
     };
 
-    window.i18n = t;
-    var container = new Container(containerDefinition);
-    container.register("i18n", t);
-    var mainView = container.getObject({
-      name: "main-view",
-      callback: {
-        success: function(mainView) {
-          mainView.render($("body"));
-        },
-        failure: function(error, beanName) {
-          $("body").append("Error loading application: " + error + " when loading bean: " + beanName);
-        }
-      }
+    var container = inverted.create(containerDefinition, window);
+
+    container.getProto("main-view", function(mainView) {
+      mainView.render($("body"));
+      Backbone.history.start();
+    }, function(error) {
+        $("body").append("Error loading application: " + error);
     });
   }, {
     fallbackLang: "en"

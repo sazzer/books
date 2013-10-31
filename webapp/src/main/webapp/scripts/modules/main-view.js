@@ -50,7 +50,7 @@ define(["underscore", "widget"], function(_, Widget) {
      * @method renderUi
      */
     renderUi: function() {
-      this.node("searchInput").attr("placeholder", i18n("main-view.searchLabel"));
+      this.node("searchInput").attr("placeholder", this.i18n("main-view.searchLabel"));
     },
 
     /**
@@ -65,10 +65,18 @@ define(["underscore", "widget"], function(_, Widget) {
       e.preventDefault();
 
       if (searchString) {
-        console.log("Searching..." + searchString);
         searchInput.val("");
         this.router.search(searchString);
       }
+    },
+
+    /**
+     * Actually display the search screen for the given query
+     * @param query The query to search for
+     * @method displaySearch
+     */
+    displaySearch: function(query) {
+      console.log("Searching..." + query);
     }
   });
 });
