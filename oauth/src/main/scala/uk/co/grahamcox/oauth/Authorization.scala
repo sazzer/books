@@ -14,8 +14,7 @@ import java.net.URLEncoder
  */
 class Authorization(val consumerKey: String, 
   val nonce: Nonce, 
-  val signature: String, 
-  val signatureMethod: String, 
+  val signature: Signature, 
   val timestamp: DateTime,
   val token: String, 
   val version: String) {
@@ -26,8 +25,8 @@ class Authorization(val consumerKey: String,
   override def toString: String = {
     val headerValues = Map("oauth_consumer_key" -> consumerKey,
       "oauth_nonce" -> nonce.value,
-      "oauth_signature" -> signature,
-      "oauth_signature_method" -> signatureMethod,
+      "oauth_signature" -> signature.value,
+      "oauth_signature_method" -> signature.method,
       "oauth_timestamp" -> (timestamp.withZone(DateTimeZone.UTC).getMillis() / 1000).toString(),
       "oauth_token" -> token,
       "oauth_version" -> version)
