@@ -7,7 +7,7 @@ class AuthorizationSpec extends SpecificationWithJUnit {
   "Authorization" should {
     "return the correct string" in {
       val auth = new Authorization("xvz1evFS4wEEPTGEFPHBog", 
-        "kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg",
+        new Nonce("kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg"),
         "tnnArxj06cWHq44gCs1OSKk/jLY=",
         "HMAC-SHA1",
         new DateTime(1318622958000L),
