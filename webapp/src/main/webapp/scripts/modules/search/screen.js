@@ -9,13 +9,24 @@ define(["underscore", "widget"], function(_, Widget) {
     className: "search-screen",
     /** The template to render */
     template: _.template([
-      '<div>Search results here</div>'
+      '<div class="temp">Search results here</div>'
     ].join("")),
     /** The nodes to pick out of the template */
     nodes: {
+      "temp": "div.temp"
     },
     /** Definition of events to auto-wire */
     events: {
+    },
+    /**
+     * Render the view
+     * @method renderUi
+     */
+    renderUi: function() {
+      this.node("temp").append(this._query);
+    },
+    setSearch: function(query) {
+      this._query = query;
     }
   });
 });

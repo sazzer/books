@@ -85,6 +85,7 @@ define(["underscore", "widget"], function(_, Widget) {
     displaySearch: function(query) {
       var mainArea = this.node("mainArea");
       this.__appContext__.getProto("search:screen", function(searchScreen) {
+        searchScreen.setSearch(query);
         searchScreen.render(mainArea);
       });
     }
