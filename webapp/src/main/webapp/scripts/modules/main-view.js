@@ -9,9 +9,15 @@ define(["underscore", "widget"], function(_, Widget) {
     className: "main-view",
     /** The template to render */
     template: _.template([
-      '<div class="navbar navbar-inverse navbar-fixed-top">',
+      '<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">',
         '<div class="container">',
           '<div class="navbar-header">',
+            '<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">',
+              '<span class="sr-only">Toggle navigation</span>',
+              '<span class="icon-bar"></span>',
+              '<span class="icon-bar"></span>',
+              '<span class="icon-bar"></span>',
+            '</button>',
             '<a class="navbar-brand" href="#" i18n="pageName"></a>',
           '</div>',
           '<div class="collapse navbar-collapse">',
@@ -33,13 +39,14 @@ define(["underscore", "widget"], function(_, Widget) {
           '</div>',
         '</div>',
       '</div>',
-      '<div class="container">',
+      '<div class="container main-area">',
       '</div>'
     ].join("")),
     /** The nodes to pick out of the template */
     nodes: {
       "searchForm": "form.search",
-      "searchInput": "input.search"
+      "searchInput": "input.search",
+      "mainArea": "div.main-area"
     },
     /** Definition of events to auto-wire */
     events: {
@@ -76,7 +83,10 @@ define(["underscore", "widget"], function(_, Widget) {
      * @method displaySearch
      */
     displaySearch: function(query) {
-      console.log("Searching..." + query);
+      var mainArea = this.node("mainArea");
+      this.__appContext__.getProto("search:screen", function(searchScreen) {
+        searchScreen.render(mainArea);
+      });
     }
   });
 });

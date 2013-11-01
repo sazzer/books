@@ -17,10 +17,15 @@ define(["backbone", "inverted", "jsperanto"], function(Backbone, inverted) {
         "main-view": {
           "scope": "singleton",
           "module": "main-view",
+          "injectAppContext": true,
           "props": {
             "i18n": "*i18n",
             "router": "*router"
           }
+        },
+        "search:screen": {
+          "scope": "prototype",
+          "module": "search/screen"
         }
       }
     };
