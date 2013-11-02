@@ -37,7 +37,14 @@ class AuthorizationSpec extends SpecificationWithJUnit {
         new Key("xvz1evFS4wEEPTGEFPHBog", "kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw"),
         Some(new Key("370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", "LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE")))
         
-      auth must not be empty
+      auth.toString must not be empty
+    }
+    "build a request_token header easily" in {
+      val auth = Authorization(new Request("POST", "https://api.twitter.com/oauth/request_token"), 
+        new Key("xvz1evFS4wEEPTGEFPHBog", "kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw"))
+        
+      println("Auth header = " + auth.toString)
+      auth.toString must not be empty
     }
   }
 }

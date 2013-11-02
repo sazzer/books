@@ -58,7 +58,7 @@ object Authorization {
    */
   def apply(request: Request, 
     consumerKey: Key, 
-    token: Option[Key],
+    token: Option[Key] = None,
     nonce: Nonce = new Nonce(),
     timestamp: DateTime = DateTime.now,
     signingMethod: SigningMethod = new HmacSha1SigningMethod(),
