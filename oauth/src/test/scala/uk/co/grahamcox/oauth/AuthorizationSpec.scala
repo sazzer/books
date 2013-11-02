@@ -29,6 +29,16 @@ class AuthorizationSpec extends SpecificationWithJUnit {
         auth.toString must beEqualTo("OAuth oauth_consumer_key=\"xvz1evFS4wEEPTGEFPHBog\", oauth_nonce=\"kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg\", oauth_signature=\"tnnArxj06cWHq44gCs1OSKk%2FjLY%3D\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"1318622958\", oauth_token=\"370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb\", oauth_version=\"1.0\"")
       }
     }
+    "build a header easily" in {
+      val auth = Authorization(new Request("POST", "https://api.twitter.com/1/statuses/update.json", Map(
+          "include_entities" -> "true",
+          "status" -> "Hello Ladies + Gentlemen, a signed OAuth request!"
+        )), 
+        new Key("xvz1evFS4wEEPTGEFPHBog", "kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw"),
+        Some(new Key("370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", "LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE")))
+        
+      auth must not be empty
+    }
   }
 }
 
