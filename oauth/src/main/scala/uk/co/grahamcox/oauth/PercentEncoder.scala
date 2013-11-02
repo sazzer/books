@@ -11,7 +11,7 @@ object PercentEncoder {
    * @param input The string to encode
    * @return the encoded string
    */
-  def encode(input: String) = {
+  def apply(input: String) = {
     input.getBytes().toSeq.map {
       _ match {
         case b if safeBytes.contains(b) => b.toChar

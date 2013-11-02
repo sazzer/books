@@ -32,7 +32,7 @@ class Authorization(val consumerKey: String,
       "oauth_version" -> version)
 
     val headerList = headerValues.foldLeft(Seq.empty[String]) {
-      case (soFar, (key, value)) => soFar ++ Seq(PercentEncoder.encode(key) + "=\"" + PercentEncoder.encode(value) + "\"")
+      case (soFar, (key, value)) => soFar ++ Seq(PercentEncoder(key) + "=\"" + PercentEncoder(value) + "\"")
     } sorted
 
     headerList.mkString("OAuth ", ", ", "")
